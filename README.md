@@ -28,3 +28,10 @@ Die fertigen Dateien liegen in `dist/`.
 Das Motivfoto stammt von [Salah Regouane auf Unsplash](https://unsplash.com/photos/a-close-up-of-a-person-cutting-another-persons-hair-MRCdF3qUbp0) und zeigt nicht den tatsächlichen Salon. Schriftarten werden von Google Fonts geladen.
 
 Impressum und Datenschutzerklärung sind noch nicht enthalten.
+
+## Instagram und Öffnungszeiten
+
+- Offizielle Instagram-Einbettungen zu Locken und Damenfrisuren in src/InstagramPost.jsx.
+- Lockenangebot mit dem bereitgestellten Reel DbMEMMQMyul.
+- Montag bis Freitag 09–19 Uhr, Samstag 09–18 Uhr, Sonntag geschlossen.
+- Instagram stellt Bilder und Videowiedergabe bereit; Verfügbarkeit und Anmeldeanforderungen liegen bei Instagram. Direkte Beitragslinks bleiben als Alternative sichtbar.
