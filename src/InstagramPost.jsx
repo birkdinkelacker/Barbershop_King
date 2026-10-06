@@ -1,30 +1,15 @@
-import { useEffect } from 'react'
+import { useState } from 'react'
 
 export const instagramProfile = 'https://www.instagram.com/king_barbershop_eberbach/'
-let embedScript
-function loadInstagram() {
-  if (window.instgrm?.Embeds) return Promise.resolve()
-  if (!embedScript) embedScript = new Promise((resolve, reject) => {
-    const script = document.createElement('script')
-    script.src = 'https://www.instagram.com/embed.js'
-    script.async = true
-    script.onload = resolve
-    script.onerror = () => { script.remove(); embedScript = undefined; reject(new Error('Instagram unavailable')) }
-    document.body.appendChild(script)
-  })
-  return embedScript
-}
 export default function InstagramPost({ code, title }) {
+  const [enabled, setEnabled] = useState(false)
   const url = `https://www.instagram.com/reel/${code}/`
-  useEffect(() => {
-    let mounted = true
-    loadInstagram().then(() => { if (mounted) window.instgrm?.Embeds?.process() }).catch(() => {})
-    return () => { mounted = false }
-  }, [code])
   return <figure className="instagram-post">
-    <div className="instagram-frame"><blockquote className="instagram-media" data-instgrm-permalink={url} data-instgrm-version="14">
-      <a href={url} target="_blank" rel="noreferrer"><img src="/king-logo.jpg" width="90" height="90" alt=""/><span>{title}</span><span>Video auf Instagram ansehen</span></a>
-    </blockquote></div>
+    <div className="instagram-frame">
+      {enabled ? <iframe src={`${url}embed/`} title={`Instagram: ${title}`} width="540" height="720" allow="encrypted-media; fullscreen; picture-in-picture" referrerPolicy="no-referrer" allowFullScreen /> :
+        <div className="instagram-consent"><img src="/king-logo.jpg" width="90" height="90" alt=""/><h3>{title}</h3><p>Beim Laden erhält Meta deine IP-Adresse und Browserdaten. Instagram kann Cookies setzen und deinen Besuch deinem Konto zuordnen; eine Verarbeitung in den USA ist möglich.</p><button className="button" type="button" onClick={() => setEnabled(true)}>Zustimmen & Video laden</button><a href="/datenschutz.html#instagram">Datenschutz zu Instagram</a></div>}
+    </div>
+    {enabled && <button className="instagram-revoke" type="button" onClick={() => setEnabled(false)}>Einwilligung widerrufen & Video entfernen</button>}
     <figcaption><span>{title}</span><a href={url} target="_blank" rel="noreferrer">Auf Instagram öffnen</a></figcaption>
   </figure>
 }
